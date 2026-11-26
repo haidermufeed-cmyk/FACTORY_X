@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FACTORY-X | Intelligent Factory Simulator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">F</div>
+            <div>
+                <h1>FACTORY-X</h1>
+                <p>INTELLIGENT INDUSTRIAL SYSTEM</p>
+            </div>
+        </div>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            SYSTEM ONLINE
+        </div>
+
+        <div class="top-controls">
+            <span id="clock">00:00:00</span>
+            <button id="startBtn">▶ START</button>
+            <button id="pauseBtn">Ⅱ PAUSE</button>
+            <button id="resetBtn">↻ RESET</button>
+        </div>
+    </header>
+
+    <main class="dashboard">
+
+        <!-- KPI CARDS -->
+        <section class="kpi-grid">
+
+            <div class="kpi-card">
+                <span class="kpi-label">ORDERS COMPLETED</span>
+                <h2 id="completedOrders">0</h2>
+                <span class="kpi-note">Production output</span>
+            </div>
+
+            <div class="kpi-card">
+                <span class="kpi-label">PASSED UNITS</span>
+                <h2 id="completedUnits">0</h2>
+                <span class="kpi-note">Accepted products</span>
+            </div>
+
+            <div class="kpi-card">
+                <span class="kpi-label">REJECTED UNITS</span>
+                <h2 id="rejectedUnits">0</h2>
+                <span class="kpi-note">Defective products</span>
+            </div>
+
+            <div class="kpi-card">
+                <span class="kpi-label">ACTIVE ROBOTS</span>
+                <h2 id="activeRobots">0 / 2</h2>
+                <span class="kpi-note">Autonomous fleet</span>
+            </div>
+
+            <div class="kpi-card">
+                <span class="kpi-label">MACHINE STATUS</span>
+                <h2 id="machineStatus">3 / 3</h2>
+                <span class="kpi-note">Machines operational</span>
+            </div>
+
+            <div class="kpi-card">
+                <span class="kpi-label">ACTIVE ALERTS</span>
+                <h2 id="activeAlerts">0</h2>
+                <span class="kpi-note">System warnings</span>
+            </div>
+
+        </section>
+
+        <!-- FACTORY FLOOR -->
+        <section class="factory-section">
+
+            <div class="section-heading">
+                <div>
+                    <h2>FACTORY FLOOR</h2>
+                    <p>Live industrial simulation environment</p>
+                </div>
+                <span class="live-label">● LIVE SIMULATION</span>
+            </div>
+
+            <div class="factory-container">
+                <canvas id="factoryCanvas" width="1000" height="570">
+                    Your browser does not support Canvas.
+                </canvas>
+            </div>
+
+            <div class="legend">
+                <span><i class="legend-dot green"></i> Operational</span>
+                <span><i class="legend-dot blue"></i> Robot</span>
+                <span><i class="legend-dot orange"></i> Processing</span>
+                <span><i class="legend-dot red"></i> Fault / Rejection</span>
+            </div>
+
+        </section>
+
+        <!-- CONTROL PANELS -->
+        <section class="lower-grid">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>PRODUCTION CONTROL</h3>
+                    <span class="panel-tag">ORDERS</span>
+                </div>
+
+                <div class="production-info">
+                    <p>Current production queue</p>
+                    <h2 id="queueCount">0</h2>
+                </div>
+
+                <button class="primary-btn" id="createOrderBtn">
+                    + CREATE PRODUCTION ORDER
+                </button>
+
+                <div id="orderList" class="order-list">
+                    <p class="empty-message">No production orders yet.</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>ROBOT FLEET</h3>
+                    <span class="panel-tag">AMR</span>
+                </div>
+
+                <div id="robotList"></div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>MACHINE MONITORING</h3>
+                    <span class="panel-tag">HEALTH</span>
+                </div>
+
+                <div id="machineList"></div>
+
+                <button class="danger-btn" id="faultBtn">
+                    ⚠ TRIGGER TRAINING FAULT
+                </button>
+
+                <button class="secondary-btn" id="recoverBtn">
+                    RECOVER MACHINE
+                </button>
+            </div>
+
+        </section>
+
+        <!-- QUALITY CONTROL -->
+        <section class="panel quality-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h3>QUALITY CONTROL & INSPECTION</h3>
+                    <p class="quality-subtitle">
+                        Product inspection results and defect analysis
+                    </p>
+                </div>
+                <span class="panel-tag">QC SYSTEM</span>
+            </div>
+
+            <div class="quality-stats">
+
+                <div class="quality-stat">
+                    <span>INSPECTED</span>
+                    <strong id="inspectedUnits">0</strong>
+                </div>
+
+                <div class="quality-stat">
+                    <span>PASS RATE</span>
+                    <strong id="passRate">0%</strong>
+                </div>
+
+                <div class="quality-stat">
+                    <span>REJECTION RATE</span>
+                    <strong id="rejectRate">0%</strong>
+                </div>
+
+            </div>
+
+            <div class="quality-progress">
+                <div class="quality-progress-label">
+                    <span>Accepted products</span>
+                    <span id="qualityProgressText">0 / 0</span>
+                </div>
+
+                <div class="quality-track">
+                    <div id="qualityPassBar" class="quality-pass-bar"></div>
+                    <div id="qualityRejectBar" class="quality-reject-bar"></div>
+                </div>
+            </div>
+
+            <div class="inspection-heading">
+                <h4>INSPECTION HISTORY</h4>
+                <span id="inspectionCount">0 RECORDS</span>
+            </div>
+
+            <div class="inspection-table-wrap">
+                <table class="inspection-table">
+                    <thead>
+                        <tr>
+                            <th>ORDER</th>
+                            <th>UNIT</th>
+                            <th>RESULT</th>
+                            <th>DEFECT REASON</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inspectionHistory">
+                        <tr>
+                            <td colspan="4" class="empty-message">
+                                No inspections performed yet.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- EVENT LOG -->
+        <section class="panel event-panel">
+            <div class="panel-heading">
+                <h3>SYSTEM EVENT LOG</h3>
+                <span class="panel-tag">ACTIVITY</span>
+            </div>
+
+            <div id="eventLog" class="event-log">
+                <p class="empty-message">
+                    System initialized. Waiting for activity...
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        FACTORY-X © 2026 | EDUCATIONAL FACTORY SIMULATION
+        <span>SIMULATED DATA — NOT CONNECTED TO REAL MACHINERY</span>
+    </footer>
+
+</div>
+
+<script src="js/pathfinding.js"></script>
+<script src="js/factory.js"></script>
+<script src="js/robots.js"></script>
+<script src="js/production.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
