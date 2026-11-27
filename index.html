@@ -35,9 +35,8 @@
 
     <main class="dashboard">
 
-        <!-- KPI CARDS -->
+        <!-- MAIN KPI DASHBOARD -->
         <section class="kpi-grid">
-
             <div class="kpi-card">
                 <span class="kpi-label">ORDERS COMPLETED</span>
                 <h2 id="completedOrders">0</h2>
@@ -73,15 +72,13 @@
                 <h2 id="activeAlerts">0</h2>
                 <span class="kpi-note">System warnings</span>
             </div>
-
         </section>
 
-        <!-- FACTORY FLOOR -->
+        <!-- 2D FACTORY -->
         <section class="factory-section">
-
             <div class="section-heading">
                 <div>
-                    <h2>FACTORY FLOOR</h2>
+                    <h2>FACTORY FLOOR — 2D</h2>
                     <p>Live industrial simulation environment</p>
                 </div>
                 <span class="live-label">● LIVE SIMULATION</span>
@@ -99,12 +96,38 @@
                 <span><i class="legend-dot orange"></i> Processing</span>
                 <span><i class="legend-dot red"></i> Fault / Rejection</span>
             </div>
+        </section>
 
+        <!-- 3D FACTORY -->
+        <section class="factory-section factory-3d-section">
+            <div class="section-heading">
+                <div>
+                    <h2>FACTORY DIGITAL TWIN — 3D</h2>
+                    <p>Three-dimensional industrial environment synchronized with live production</p>
+                </div>
+                <span class="live-label">● 3D VIEW</span>
+            </div>
+
+            <div id="factory3DContainer"
+                 style="width:100%; height:560px; min-height:400px; position:relative; overflow:hidden; background:#0b1520; border:1px solid #26394c; border-radius:8px;">
+
+                <div id="factory3DLoading"
+                     style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#9eb2c5; font-family:Arial; z-index:2;">
+                    Initializing 3D factory environment...
+                </div>
+
+            </div>
+
+            <div class="legend">
+                <span><i class="legend-dot green"></i> Operational machine</span>
+                <span><i class="legend-dot blue"></i> AGV</span>
+                <span><i class="legend-dot orange"></i> Production</span>
+                <span><i class="legend-dot red"></i> Machine fault</span>
+            </div>
         </section>
 
         <!-- PRODUCTION ANALYTICS -->
         <section class="analytics-section">
-
             <div class="section-heading analytics-heading">
                 <div>
                     <h2>PRODUCTION ANALYTICS</h2>
@@ -114,7 +137,6 @@
             </div>
 
             <div class="analytics-kpi-grid">
-
                 <div class="analytics-kpi">
                     <span>THROUGHPUT</span>
                     <strong id="analyticsThroughput">0.00</strong>
@@ -150,11 +172,9 @@
                     <strong id="analyticsSimulationTime">0m 0s</strong>
                     <small>Accumulated running time</small>
                 </div>
-
             </div>
 
             <div class="analytics-content-grid">
-
                 <div class="analytics-card">
                     <div class="analytics-card-heading">
                         <h3>PRODUCTION OUTPUT TREND</h3>
@@ -177,43 +197,156 @@
                     </div>
 
                     <div id="analyticsMachineList">
-                        <p class="empty-message">
-                            Machine analytics will appear here.
-                        </p>
+                        <p class="empty-message">Machine analytics will appear here.</p>
                     </div>
 
                     <small class="analytics-note">
                         Utilization is calculated against operational time
                     </small>
                 </div>
+            </div>
+        </section>
 
+        <!-- PYTHON INTELLIGENCE ENGINE -->
+        <section class="analytics-section python-intelligence-section">
+
+            <div class="section-heading analytics-heading">
+                <div>
+                    <span class="section-eyebrow">PYTHON BACKEND • FLASK API</span>
+                    <h2>PYTHON INTELLIGENCE ENGINE</h2>
+                    <p>Production analysis, machine health monitoring and bottleneck detection</p>
+                </div>
+
+                <span id="pythonEngineStatus" class="panel-tag">
+                    NOT CONNECTED
+                </span>
             </div>
 
+            <div class="python-engine-content">
+
+                <div class="python-engine-controls">
+                    <div>
+                        <h3>INDUSTRIAL DATA ANALYSIS</h3>
+                        <p id="pythonAnalysisMessage">
+                            Run the Python engine to analyse current simulation data.
+                        </p>
+                    </div>
+
+                    <button id="pythonAnalysisBtn" class="report-export-btn">
+                        RUN PYTHON ANALYSIS
+                    </button>
+                </div>
+
+                <!-- PYTHON ANALYSIS KPIs -->
+                <div class="analytics-kpi-grid python-kpi-grid">
+
+                    <div class="analytics-kpi">
+                        <span>PYTHON QUALITY YIELD</span>
+                        <strong id="pythonQualityYield">--</strong>
+                        <small>Accepted units / inspected units</small>
+                    </div>
+
+                    <div class="analytics-kpi">
+                        <span>REJECTION RATE</span>
+                        <strong id="pythonRejectionRate">--</strong>
+                        <small>Rejected units / inspected units</small>
+                    </div>
+
+                    <div class="analytics-kpi">
+                        <span>MACHINE AVAILABILITY</span>
+                        <strong id="pythonAvailability">--</strong>
+                        <small>Operational time / total recorded time</small>
+                    </div>
+
+                    <div class="analytics-kpi">
+                        <span>MACHINE HEALTH</span>
+                        <strong id="pythonHealthStatus">--</strong>
+                        <small>Python health assessment</small>
+                    </div>
+
+                    <div class="analytics-kpi">
+                        <span>SLOWEST PRODUCTION STAGE</span>
+                        <strong id="pythonBottleneck">--</strong>
+                        <small>Highest average processing time</small>
+                    </div>
+
+                    <div class="analytics-kpi">
+                        <span>BOTTLENECK TIME</span>
+                        <strong id="pythonBottleneckTime">--</strong>
+                        <small>Average seconds per processed unit</small>
+                    </div>
+
+                </div>
+
+                <!-- BOTTLENECK RECOMMENDATION -->
+                <div class="bottleneck-recommendation">
+
+                    <div class="recommendation-heading">
+                        <span class="section-eyebrow">PYTHON DECISION SUPPORT</span>
+                        <h3>BOTTLENECK RECOMMENDATION</h3>
+                    </div>
+
+                    <div class="bottleneck-severity-row">
+                        <span>BOTTLENECK SEVERITY</span>
+                        <strong id="pythonBottleneckSeverity">
+                            AWAITING DATA
+                        </strong>
+                    </div>
+
+                    <p id="pythonBottleneckMessage">
+                        Run Python analysis to identify production constraints.
+                    </p>
+
+                    <div class="recommendation-action">
+                        <span>RECOMMENDED ACTION</span>
+                        <strong id="pythonBottleneckRecommendation">
+                            Awaiting analysis...
+                        </strong>
+                    </div>
+
+                    <!-- STAGE PERFORMANCE COMPARISON -->
+                    <div class="stage-comparison">
+                        <h4>STAGE PERFORMANCE COMPARISON</h4>
+
+                        <div id="pythonStageComparison">
+                            <p class="empty-message">
+                                Waiting for production data...
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="python-analysis-footer">
+                    <span>
+                        LAST ANALYSIS:
+                        <strong id="pythonAnalysisTime">Not yet analysed</strong>
+                    </span>
+
+                    <span>
+                        ENGINE:
+                        <strong>PYTHON / FLASK</strong>
+                    </span>
+                </div>
+
+            </div>
         </section>
 
         <!-- PRODUCTION REPORTS -->
         <section class="reports-section">
-
             <div class="reports-heading">
                 <div>
                     <span class="section-eyebrow">FACTORY INTELLIGENCE</span>
                     <h2>PRODUCTION REPORTS</h2>
-                    <p>
-                        Production records, machine performance and
-                        quality inspection data.
-                    </p>
+                    <p>Production records, machine performance and quality inspection data.</p>
                 </div>
 
-                <button
-                    class="report-export-btn"
-                    onclick="Reports.downloadCSV()"
-                >
+                <button class="report-export-btn" onclick="Reports.downloadCSV()">
                     ↓ EXPORT CSV
                 </button>
             </div>
 
             <div class="reports-info-grid">
-
                 <div class="report-info-card">
                     <span>REPORT FORMAT</span>
                     <strong>CSV / EXCEL</strong>
@@ -231,14 +364,13 @@
                     <strong>LIVE SIMULATION</strong>
                     <small>Current production records</small>
                 </div>
-
             </div>
-
         </section>
 
-        <!-- CONTROL PANELS -->
+        <!-- LOWER DASHBOARD -->
         <section class="lower-grid">
 
+            <!-- PRODUCTION CONTROL -->
             <div class="panel">
                 <div class="panel-heading">
                     <h3>PRODUCTION CONTROL</h3>
@@ -259,6 +391,7 @@
                 </div>
             </div>
 
+            <!-- ROBOT FLEET -->
             <div class="panel">
                 <div class="panel-heading">
                     <h3>ROBOT FLEET</h3>
@@ -268,6 +401,7 @@
                 <div id="robotList"></div>
             </div>
 
+            <!-- MACHINE MONITORING -->
             <div class="panel">
                 <div class="panel-heading">
                     <h3>MACHINE MONITORING</h3>
@@ -276,20 +410,108 @@
 
                 <div id="machineList"></div>
 
-                <button class="danger-btn" id="faultBtn">
-                    ⚠ TRIGGER TRAINING FAULT
-                </button>
+                <div class="fault-control-panel">
+                    <h4>FAULT SIMULATION</h4>
 
-                <button class="secondary-btn" id="recoverBtn">
-                    RECOVER MACHINE
-                </button>
+                    <label for="faultMachineSelect">Select Machine</label>
+                    <select id="faultMachineSelect">
+                        <option value="M-01">M-01 — Raw Processing</option>
+                        <option value="M-02" selected>M-02 — Assembly</option>
+                        <option value="M-03">M-03 — Quality Inspection</option>
+                    </select>
+
+                    <label for="faultTypeSelect">Fault Type</label>
+                    <select id="faultTypeSelect">
+                        <option value="Motor Failure">Motor Failure</option>
+                        <option value="Overheating">Overheating</option>
+                        <option value="Sensor Error">Sensor Error</option>
+                        <option value="Mechanical Jam">Mechanical Jam</option>
+                    </select>
+
+                    <label for="faultDurationSelect">Recovery Duration</label>
+                    <select id="faultDurationSelect">
+                        <option value="10">10 seconds</option>
+                        <option value="20" selected>20 seconds</option>
+                        <option value="30">30 seconds</option>
+                        <option value="45">45 seconds</option>
+                    </select>
+
+                    <button class="danger-btn" id="faultBtn">
+                        ⚠ TRIGGER MACHINE FAULT
+                    </button>
+
+                    <button class="secondary-btn" id="recoverBtn">
+                        RECOVER SELECTED MACHINE
+                    </button>
+
+                    <div id="faultStatus" class="fault-status">
+                        All machines operational
+                    </div>
+                </div>
             </div>
 
         </section>
 
+        <!-- FAULT HISTORY -->
+        <section class="panel fault-history-panel">
+            <div class="panel-heading">
+                <div>
+                    <h3>FAULT HISTORY & RECOVERY RECORDS</h3>
+                    <p class="quality-subtitle">
+                        Machine fault events and recovery activity
+                    </p>
+                </div>
+
+                <span class="panel-tag">MAINTENANCE LOG</span>
+            </div>
+
+            <div class="quality-stats">
+                <div class="quality-stat">
+                    <span>TOTAL FAULT EVENTS</span>
+                    <strong id="faultEventCount">0</strong>
+                </div>
+
+                <div class="quality-stat">
+                    <span>ACTIVE FAULTS</span>
+                    <strong id="faultActiveCount">0</strong>
+                </div>
+
+                <div class="quality-stat">
+                    <span>RECOVERED EVENTS</span>
+                    <strong id="faultRecoveredCount">0</strong>
+                </div>
+            </div>
+
+            <div class="inspection-heading">
+                <h4>MACHINE EVENT RECORDS</h4>
+                <span id="faultHistoryCount">0 RECORDS</span>
+            </div>
+
+            <div class="inspection-table-wrap">
+                <table class="inspection-table">
+                    <thead>
+                        <tr>
+                            <th>TIME</th>
+                            <th>MACHINE</th>
+                            <th>FAULT TYPE</th>
+                            <th>EVENT</th>
+                            <th>DURATION</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="faultHistoryList">
+                        <tr>
+                            <td colspan="5" class="empty-message">
+                                No machine faults recorded yet.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- QUALITY CONTROL -->
         <section class="panel quality-panel">
-
             <div class="panel-heading">
                 <div>
                     <h3>QUALITY CONTROL & INSPECTION</h3>
@@ -297,11 +519,11 @@
                         Product inspection results and defect analysis
                     </p>
                 </div>
+
                 <span class="panel-tag">QC SYSTEM</span>
             </div>
 
             <div class="quality-stats">
-
                 <div class="quality-stat">
                     <span>INSPECTED</span>
                     <strong id="inspectedUnits">0</strong>
@@ -316,7 +538,6 @@
                     <span>REJECTION RATE</span>
                     <strong id="rejectRate">0%</strong>
                 </div>
-
             </div>
 
             <div class="quality-progress">
@@ -346,6 +567,7 @@
                             <th>DEFECT REASON</th>
                         </tr>
                     </thead>
+
                     <tbody id="inspectionHistory">
                         <tr>
                             <td colspan="4" class="empty-message">
@@ -355,7 +577,6 @@
                     </tbody>
                 </table>
             </div>
-
         </section>
 
         <!-- EVENT LOG -->
@@ -381,12 +602,21 @@
 
 </div>
 
+<!-- Three.js library -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+<!-- Existing simulation scripts -->
 <script src="js/pathfinding.js"></script>
 <script src="js/factory.js"></script>
 <script src="js/robots.js"></script>
 <script src="js/production.js"></script>
 <script src="js/analytics.js"></script>
 <script src="js/reports.js"></script>
+
+<!-- 3D visualization module -->
+<script src="js/factory3d.js"></script>
+
+<!-- Main controller -->
 <script src="js/app.js"></script>
 
 </body>
