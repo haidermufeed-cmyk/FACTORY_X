@@ -4,7 +4,7 @@
   app.js
 
   Industrial factory simulation controller.
-  Intelligent machine monitoring dashboard.
+  Intelligent machine monitoring + production analytics.
 */
 
 const App = {
@@ -31,8 +31,13 @@ const App = {
         this.findElements();
         this.connectButtons();
 
-        // Initialize machine metrics before first dashboard render.
+        // Initialize machine metrics before dashboard rendering.
         Production.initializeMachineMetrics();
+
+        // Initialize production analytics.
+        if (typeof Analytics !== "undefined") {
+            Analytics.initialize();
+        }
 
         this.drawFactory();
         this.updateDashboard();
@@ -45,6 +50,7 @@ const App = {
         addEvent("Autonomous robot fleet registered");
         addEvent("Production machines online");
         addEvent("Machine intelligence monitoring enabled");
+        addEvent("Production analytics initialized");
         addEvent("Quality inspection system ready");
         addEvent("Conveyor network initialized");
         addEvent("Parallel production engine ready");
@@ -155,11 +161,17 @@ const App = {
         // New machines need fresh performance records.
         Production.initializeMachineMetrics();
 
+        // Reset analytics after production data is cleared.
+        if (typeof Analytics !== "undefined") {
+            Analytics.reset();
+        }
+
         this.activeFault = false;
         this.alertCount = 0;
 
         addEvent("Factory simulation reset");
         addEvent("Machine performance records reset");
+        addEvent("Production analytics reset");
 
         this.drawFactory();
         this.updateDashboard();
@@ -207,6 +219,11 @@ const App = {
 
         RobotFleet.update(deltaTime);
         Production.update(deltaTime);
+
+        // Update analytics using simulation time, not wall-clock time.
+        if (typeof Analytics !== "undefined") {
+            Analytics.update(deltaTime);
+        }
 
         Factory.updateConveyors(deltaTime);
 
@@ -820,6 +837,11 @@ const App = {
         this.renderMachines();
         this.renderMachineSummary();
         this.renderQuality();
+
+        // Refresh analytics values and machine comparison.
+        if (typeof Analytics !== "undefined") {
+            Analytics.render();
+        }
     },
 
     setText(id, value) {

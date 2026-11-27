@@ -102,6 +102,140 @@
 
         </section>
 
+        <!-- PRODUCTION ANALYTICS -->
+        <section class="analytics-section">
+
+            <div class="section-heading analytics-heading">
+                <div>
+                    <h2>PRODUCTION ANALYTICS</h2>
+                    <p>Production performance and operational intelligence</p>
+                </div>
+                <span class="panel-tag">LIVE ANALYTICS</span>
+            </div>
+
+            <div class="analytics-kpi-grid">
+
+                <div class="analytics-kpi">
+                    <span>THROUGHPUT</span>
+                    <strong id="analyticsThroughput">0.00</strong>
+                    <small>Delivered units / minute</small>
+                </div>
+
+                <div class="analytics-kpi">
+                    <span>QUALITY YIELD</span>
+                    <strong id="analyticsYield">0.0%</strong>
+                    <small>Accepted inspected units</small>
+                </div>
+
+                <div class="analytics-kpi">
+                    <span>AVG. ORDER CYCLE</span>
+                    <strong id="analyticsCycleTime">0.0s</strong>
+                    <small>Completed orders only</small>
+                </div>
+
+                <div class="analytics-kpi">
+                    <span>DELIVERED UNITS</span>
+                    <strong id="analyticsDelivered">0</strong>
+                    <small>Passed + rejected products</small>
+                </div>
+
+                <div class="analytics-kpi">
+                    <span>HIGHEST UTILIZATION</span>
+                    <strong id="analyticsBottleneck">None</strong>
+                    <small>Highest active utilization</small>
+                </div>
+
+                <div class="analytics-kpi">
+                    <span>SIMULATION TIME</span>
+                    <strong id="analyticsSimulationTime">0m 0s</strong>
+                    <small>Accumulated running time</small>
+                </div>
+
+            </div>
+
+            <div class="analytics-content-grid">
+
+                <div class="analytics-card">
+                    <div class="analytics-card-heading">
+                        <h3>PRODUCTION OUTPUT TREND</h3>
+                        <span class="panel-tag">OUTPUT</span>
+                    </div>
+
+                    <div class="analytics-chart-wrap">
+                        <canvas id="productionTrendChart"></canvas>
+                    </div>
+
+                    <small class="analytics-note">
+                        Cumulative delivered units over simulation time
+                    </small>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="analytics-card-heading">
+                        <h3>MACHINE PERFORMANCE</h3>
+                        <span class="panel-tag">UTILIZATION</span>
+                    </div>
+
+                    <div id="analyticsMachineList">
+                        <p class="empty-message">
+                            Machine analytics will appear here.
+                        </p>
+                    </div>
+
+                    <small class="analytics-note">
+                        Utilization is calculated against operational time
+                    </small>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- PRODUCTION REPORTS -->
+        <section class="reports-section">
+
+            <div class="reports-heading">
+                <div>
+                    <span class="section-eyebrow">FACTORY INTELLIGENCE</span>
+                    <h2>PRODUCTION REPORTS</h2>
+                    <p>
+                        Production records, machine performance and
+                        quality inspection data.
+                    </p>
+                </div>
+
+                <button
+                    class="report-export-btn"
+                    onclick="Reports.downloadCSV()"
+                >
+                    ↓ EXPORT CSV
+                </button>
+            </div>
+
+            <div class="reports-info-grid">
+
+                <div class="report-info-card">
+                    <span>REPORT FORMAT</span>
+                    <strong>CSV / EXCEL</strong>
+                    <small>Spreadsheet compatible</small>
+                </div>
+
+                <div class="report-info-card">
+                    <span>DATA COVERAGE</span>
+                    <strong>4 SECTIONS</strong>
+                    <small>Summary, orders, machines, quality</small>
+                </div>
+
+                <div class="report-info-card">
+                    <span>REPORT SOURCE</span>
+                    <strong>LIVE SIMULATION</strong>
+                    <small>Current production records</small>
+                </div>
+
+            </div>
+
+        </section>
+
         <!-- CONTROL PANELS -->
         <section class="lower-grid">
 
@@ -251,6 +385,8 @@
 <script src="js/factory.js"></script>
 <script src="js/robots.js"></script>
 <script src="js/production.js"></script>
+<script src="js/analytics.js"></script>
+<script src="js/reports.js"></script>
 <script src="js/app.js"></script>
 
 </body>
